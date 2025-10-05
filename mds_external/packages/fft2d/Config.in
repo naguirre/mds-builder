@@ -1,8 +1,0 @@
-config BR2_PACKAGE_FFT2D
-    bool "fft2d"
-    help
-        This is a package to calculate Discrete Fourier/Cosine/Sine Transforms
-        of 1-dimensional sequences of length 2^N. This package contains C and 
-        Fortran FFT codes. 
-
-        http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html

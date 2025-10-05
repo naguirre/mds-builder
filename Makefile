@@ -24,9 +24,9 @@ CONTAINER_COMMAND := ${CONTAINER_ENGINE} run -it --rm \
 		--workdir="$(CURDIR)" \
 		$(CONTAINER_IMAGE_NAME):$(CONTAINER_TAG)
 
-BUILDROOT_VERSION ?= 2024.11
+BUILDROOT_VERSION ?= 2025.02
 
-MACHINE ?= network_player
+MACHINE ?= network_player_v2
 
 CONFIG_NAME=mds_${MACHINE}_defconfig
 CONFIG_FILE?=buildroot_config/${CONFIG_NAME}

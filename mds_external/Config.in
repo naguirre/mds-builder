@@ -1,8 +1,0 @@
-source "$BR2_EXTERNAL_MDS_PATH/packages/fft2d/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/tensorflow-lite/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/farmhash/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/cpuinfo/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/neon-2-sse/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/ruy/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/gemmlowp/Config.in"
-source "$BR2_EXTERNAL_MDS_PATH/packages/mds-config/Config.in"
