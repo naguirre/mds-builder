@@ -1,9 +1,0 @@
-config BR2_PACKAGE_CSPOT
-	bool "cspot"
-	select BR2_PACKAGE_AVAHI_LIBDNSSD_COMPATIBILITY
-    select BR2_PACKAGE_ALSA_LIB
-    select BR2_PACKAGE_MBEDTLS
-	help
-	  A Spotify Connect player targeting, but not limited to embedded devices (ESP32). 
-
-	  https://github.com/feelfreelinux/cspot
