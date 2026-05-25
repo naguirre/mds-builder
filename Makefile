@@ -24,9 +24,9 @@ CONTAINER_COMMAND := ${CONTAINER_ENGINE} run -it --rm \
 		--workdir="$(CURDIR)" \
 		$(CONTAINER_IMAGE_NAME):$(CONTAINER_TAG)
 
-BUILDROOT_VERSION ?= 2025.02
+BUILDROOT_VERSION ?= 2026.02.1
 
-MACHINE ?= network_player_v2
+MACHINE ?= network_player
 
 WORKSPACE ?= $(shell pwd)
 CONFIG_NAME=mds_${MACHINE}_defconfig
@@ -142,9 +142,5 @@ container-rm: ## Remove Docker image
 help:           ## Show this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "\033[36m%-30s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 .PHONY: help
-
-.EXPORT_ALL_VARIABLES:
-CONTAINER_BUILDKIT = 1
-COMPOSE_CONTAINER_CLI_BUILD = 1
 
 .DEFAULT_GOAL := help

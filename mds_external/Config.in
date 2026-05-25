@@ -1,1 +1,0 @@
-source "$BR2_EXTERNAL_MDS_PATH/packages/mds-config/Config.in"
