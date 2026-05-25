@@ -18,3 +18,6 @@
 [submodule "src/stm32_audio_interface/src/tinyusb"]
 	path = src/stm32_audio_interface/src/tinyusb
 	url = https://github.com/hathach/tinyusb.git
+[submodule "doc/themes/goyo"]
+	path = doc/themes/goyo
+	url = https://github.com/hahwul/goyo

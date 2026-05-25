@@ -1,0 +1,59 @@
+base_url = "https://example.com"
+title = "Manufacture du Son"
+description = "Documentation for the Manufacture du Son network audio player"
+theme = "goyo"
+
+build_search_index = true
+default_language = "en"
+generate_feeds = true
+generate_sitemap = true
+
+taxonomies = [
+    { name = "tags", feed = false },
+]
+
+[markdown]
+highlight_code = true
+bottom_footnotes = true
+
+[markdown.highlighting]
+theme = "github-dark"
+
+[extra]
+enable_custom_css = false
+
+nav = [
+    { name = "Hardware",    url = "/hardware",    type = "url", icon = "microchip" },
+    { name = "Software",    url = "/software",    type = "url", icon = "code" },
+    { name = "Build",       url = "/build",       type = "url", icon = "hammer" },
+    { name = "Flashing",    url = "/flashing",    type = "url", icon = "bolt" },
+    { name = "Development", url = "/development", type = "url", icon = "wrench" },
+    { name = "GitHub",      url = "https://github.com/naguirre/mds-builder", type = "url", icon = "github" },
+]
+
+[extra.lang]
+rtl = []
+aliases = { en = "English" }
+
+[extra.logo]
+text = "Manufacture du Son"
+image_padding = "10px"
+
+[extra.theme]
+colorset = "dark"
+brightness = "normal"
+disable_toggle = false
+default_theme_dark = "goyo-dark"
+default_theme_light = "goyo-light"
+
+[extra.font]
+enabled = false
+
+[extra.sidebar]
+expand_depth = 1
+disable_root_hide = false
+enable_desktop_menu = true
+
+[extra.share]
+copy_url = false
+x = false
