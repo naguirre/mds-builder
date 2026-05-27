@@ -13,10 +13,10 @@ taxonomies = [
 ]
 
 [markdown]
-highlight_code = true
 bottom_footnotes = true
 
 [markdown.highlighting]
+enabled = true
 theme = "github-dark"
 
 [extra]

@@ -20,7 +20,7 @@ Audio is routed out over **SPDIF** (digital), making the board well suited to dr
 
 - [Specifications](/hardware/specifications) — full bill of features and pinout-relevant info
 - [Partitioning](/hardware/partitioning) — SPI NAND layout used by U-Boot and Linux
-- [KiCad sources](/hardware/kicad) — schematics, board files and external references
+- [Board design](/hardware/design) — KiCad sources, schematics, PCB versions and fabrication outputs
 
 ![Player Top](/images/network_player_top.png)
 

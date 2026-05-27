@@ -8,11 +8,13 @@ The repository contains two KiCad projects:
 
 ## Versions
 
-| Version | Date       | Status                                         | Schematic | PCB | Gerbers |
-|---------|------------|------------------------------------------------|-----------|-----|---------|
-| v1      | 2024-01-15 | Sent to JLCPCB, had routing issues             | [PDF](docs/v1/schematic.pdf) | [PDF](docs/v1/pcb.pdf) | [ZIP](docs/v1/gerbers.zip) |
-| v1.1    | 2024-06-02 | Sent to JLCPCB, fixes routing issues of v1     | [PDF](docs/v1.1/schematic.pdf) | [PDF](docs/v1.1/pcb.pdf) | [ZIP](docs/v1.1/gerbers.zip) |
-| v2      | 2024-10-17 | Full redesign on Allwinner T113-s3, never produced | [PDF](docs/v2/schematic.pdf) | [PDF](docs/v2/pcb.pdf) | [ZIP](docs/v2/gerbers.zip) |
+| Version | Date       | Status                                             | Schematic | PCB | Gerbers |
+|---------|------------|----------------------------------------------------|-----------|-----|---------|
+| v1      | 2024-01-15 | Sent to JLCPCB, had routing issues                 | [PDF](../doc/static/hardware/v1/schematic.pdf) | [PDF](../doc/static/hardware/v1/pcb.pdf) | [ZIP](../doc/static/hardware/v1/gerbers.zip) |
+| v1.1    | 2024-06-02 | Sent to JLCPCB, fixes routing issues of v1         | [PDF](../doc/static/hardware/v1.1/schematic.pdf) | [PDF](../doc/static/hardware/v1.1/pcb.pdf) | [ZIP](../doc/static/hardware/v1.1/gerbers.zip) |
+| v2      | 2024-10-17 | Full redesign on Allwinner T113-s3, never produced | [PDF](../doc/static/hardware/v2/schematic.pdf) | [PDF](../doc/static/hardware/v2/pcb.pdf) | [ZIP](../doc/static/hardware/v2/gerbers.zip) |
+
+See also the rendered [Board design](../doc/content/hardware/design.md) page in the main documentation.
 
 References on GitHub: v1 is at commit [`c1560a5`](../../commit/c1560a5), v1.1 is the [`v1.1`](../../tree/v1.1) tag, v2 lives on the [`network_player_v2`](../../tree/network_player_v2) branch. The [`v1_jlcpcb`](../../tree/v1_jlcpcb) tag points to the JLCPCB return files for v1.
 
@@ -27,4 +29,4 @@ v1.1 is the version that was actually fabricated and assembled by JLCPCB. Compar
 
 ### Schematic
 
-![v1.1 schematic](docs/v1.1/schematic.png)
+![v1.1 schematic](../doc/static/hardware/v1.1/schematic.png)

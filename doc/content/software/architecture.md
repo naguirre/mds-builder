@@ -8,35 +8,32 @@ weight = 1
 
 ## Components
 
-```
-┌───────────────────────────────────────────────────────────────────┐
-│                       Manufacture du Son                          │
-│                                                                   │
-│   ┌──────────────┐                ┌─────────────────────────────┐ │
-│   │  ESP32-C3    │  SPI / UART    │       Allwinner f1c200s     │ │
-│   │  ESP-Hosted  │ ◀────────────▶ │  ┌───────────────────────┐  │ │
-│   │  (Wi-Fi+BLE) │                │  │  Linux 6.x (rootfs)   │  │ │
-│   └──────────────┘                │  │  ┌─────────────────┐  │  │ │
-│                                   │  │  │ sun4i-spdif     │──┼──┼─▶ SPDIF out
-│                                   │  │  │ esp-hosted-ng   │  │  │ │
-│                                   │  │  │ g_ether         │──┼──┼─▶ USB-C (host)
-│                                   │  │  └─────────────────┘  │  │ │
-│                                   │  └───────────────────────┘  │ │
-│                                   │  ┌───────────────────────┐  │ │
-│                                   │  │ U-Boot 2024.04        │  │ │
-│                                   │  ├───────────────────────┤  │ │
-│                                   │  │ U-Boot SPL            │  │ │
-│                                   │  └───────────────────────┘  │ │
-│                                   │            ▲                │ │
-│                                   │            │                │ │
-│                                   │   ┌────────┴───────────┐    │ │
-│                                   │   │   SPI NAND 128 MiB │    │ │
-│                                   │   │  boot/fota/rootfs/ │    │ │
-│                                   │   │  data partitions   │    │ │
-│                                   │   └────────────────────┘    │ │
-│                                   └─────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────┘
-```
+{% mermaid() %}
+flowchart LR
+    subgraph ESP["ESP32-C3"]
+        ESPFW["ESP-Hosted firmware<br/>Wi-Fi + BLE 5.0"]
+    end
+
+    subgraph F1C["Allwinner f1c200s"]
+        direction TB
+        subgraph LINUX["Linux 6.x rootfs (musl)"]
+            SPDIF["sun4i-spdif"]
+            ESPH["esp-hosted-ng"]
+            GETHER["g_ether"]
+        end
+        UBOOT["U-Boot 2024.04"]
+        SPL["U-Boot SPL"]
+        UBOOT --> LINUX
+        SPL --> UBOOT
+    end
+
+    NAND[("SPI NAND 128 MiB<br/>boot / fota / rootfs / data")]
+
+    ESPFW <-->|SPI + UART| ESPH
+    NAND --> SPL
+    SPDIF -->|SPDIF| SPDIFOUT([SPDIF out])
+    GETHER -->|USB| USBC([USB-C host])
+{% end %}
 
 ## Sources of truth
 
