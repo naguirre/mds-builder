@@ -2,19 +2,17 @@ name: CI
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
-  container-test-job:
+  build:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/manufactureduson/mds-builder:latest
+      options: --user root
 
     steps:
-      - name: Install dependencies
-        run: |
-          sudo apt-get install -y make build-essential bash bc binutils build-essential bzip2 \
-          git zsh curl cpio g++ gcc git gzip locales libncurses5-dev libdevmapper-dev \
-          libsystemd-dev make mercurial whois patch perl python3 rsync sed \
-          tar vim unzip wget bison flex libssl-dev libfdt-dev curl file swig \
-          u-boot-tools python3-setuptools python3-dev
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:

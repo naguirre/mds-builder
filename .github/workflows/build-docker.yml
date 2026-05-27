@@ -1,12 +1,12 @@
 name: Build docker and Publish
 
 on:
-  # run it on push to the default repository branch
   push:
     branches: [main]
-  files:
-    # run it on changes to the Dockerfile
-    - Dockerfile
+    paths:
+      - Dockerfile
+      - .github/workflows/build-docker.yml
+  workflow_dispatch:
 
 jobs:
   # define job to build and publish docker image
