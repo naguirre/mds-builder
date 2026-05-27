@@ -24,7 +24,7 @@ The `mknandboot.sh` script (in `mds_external/board/mds_network_player/`) splits 
 Expected SPL output:
 
 ```text
-U-Boot SPL 2024.04
+U-Boot SPL 2026.04
 DRAM: 64 MiB
 Trying to boot from sunxi SPI
 spi0_nand_reset()
@@ -38,7 +38,7 @@ spl_spi_try_load() success
 U-Boot brings up the device, applies the saved environment and prepares to load the kernel.
 
 ```text
-U-Boot 2024.04 Allwinner Technology
+U-Boot 2026.04 Allwinner Technology
 CPU:   Allwinner F Series (SUNIV)
 Model: La Manufacture du Son - Network Streamer
 DRAM:  64 MiB

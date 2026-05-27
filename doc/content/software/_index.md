@@ -17,7 +17,7 @@ The firmware is a fully custom Linux distribution assembled with [Buildroot](htt
 |---------------|---------------------------------------------------------------------|
 | SoC bootloader| Allwinner BootROM (mask ROM)                                        |
 | Stage 1       | U-Boot SPL                                                          |
-| Stage 2       | U-Boot 2024.04 (custom devicetree + env)                            |
+| Stage 2       | U-Boot 2026.04 (custom devicetree + env)                            |
 | Kernel        | Linux 6.x with custom DTS and a handful of patches                  |
 | Rootfs        | Buildroot 2026.02.x, UBIFS, musl libc                               |
 | Recovery      | Initramfs built from the `mds_network_player_fota` Buildroot config |

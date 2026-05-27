@@ -30,3 +30,9 @@ v1.1 is the version that was actually fabricated and assembled by JLCPCB. Compar
 ### Schematic
 
 ![v1.1 schematic](../doc/static/hardware/v1.1/schematic.png)
+
+## License
+
+The hardware design (KiCad sources, schematics, PCB layouts and gerbers) is released under the **CERN Open Hardware Licence Version 2 — Permissive** (CERN-OHL-P v2). See [LICENSE](LICENSE).
+
+Copyright (c) 2026 Nicolas Aguirre.

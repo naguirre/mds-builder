@@ -6,7 +6,7 @@ weight = 2
 
 # U-Boot Development
 
-The bootloader uses U-Boot 2024.04 with a custom defconfig and devicetree. All the moving parts live under `mds_external/board/mds_network_player/`.
+The bootloader uses U-Boot 2026.04 with a custom defconfig and devicetree. All the moving parts live under `mds_external/board/mds_network_player/`.
 
 ## Rebuild
 

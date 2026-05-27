@@ -1,0 +1,14 @@
+{% if page and page.toc %}
+<h3 class="toc-title">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H3"/><path d="M15 12H3"/><path d="M17 19H3"/></svg>
+  On this page
+</h3>
+<nav class="toc-nav">
+  {% for h in page.toc %}
+    <a class="toc-link" href="#{{ h.id }}">{{ h.title }}</a>
+    {% for c in h.children %}
+      <a class="toc-link toc-link--sub" href="#{{ c.id }}">{{ c.title }}</a>
+    {% endfor %}
+  {% endfor %}
+</nav>
+{% endif %}

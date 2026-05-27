@@ -1,0 +1,14 @@
+{# Usage:
+   {% steps() %}
+   ### Install
+   Run `make build`.
+
+   ### Flash
+   Plug the board and `make flash`.
+   {% end %}
+
+   Each H3 starts a new step.
+#}
+<div class="steps">
+{{ body | markdown(inline=false) | safe }}
+</div>

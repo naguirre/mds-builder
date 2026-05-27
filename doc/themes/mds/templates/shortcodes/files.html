@@ -1,0 +1,14 @@
+{# Usage:
+   {% files() %}
+   mds_external/
+     board/
+       mds_network_player/
+         u-boot_defconfig
+         kernel_defconfig
+   {% end %}
+
+   Indentation = nesting. Trailing slash = folder.
+#}
+<div class="files">
+<pre><code>{{ body | safe }}</code></pre>
+</div>

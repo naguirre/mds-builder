@@ -21,7 +21,7 @@ flowchart LR
             ESPH["esp-hosted-ng"]
             GETHER["g_ether"]
         end
-        UBOOT["U-Boot 2024.04"]
+        UBOOT["U-Boot 2026.04"]
         SPL["U-Boot SPL"]
         UBOOT --> LINUX
         SPL --> UBOOT

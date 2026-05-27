@@ -1,0 +1,20 @@
+{% set root = get_section(path="_index.md") %}
+{% set current = current_path | default(value="") %}
+
+<a class="nav-link {% if current == '/' %}is-active{% endif %}" href="{{ get_url(path='/') | safe }}">Overview</a>
+
+{% for sub_path in root.subsections %}
+  {% set sub = get_section(path=sub_path) %}
+  <details class="nav-group" open>
+    <summary class="nav-group-title">
+      <span>{{ sub.title }}</span>
+      <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="nav-group-items">
+      <a class="nav-link {% if current == sub.path %}is-active{% endif %}" href="{{ sub.permalink | safe }}">Overview</a>
+      {% for p in sub.pages %}
+        <a class="nav-link {% if current == p.path %}is-active{% endif %}" href="{{ p.permalink | safe }}">{{ p.title }}</a>
+      {% endfor %}
+    </div>
+  </details>
+{% endfor %}

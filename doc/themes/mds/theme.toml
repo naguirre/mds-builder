@@ -1,0 +1,10 @@
+name = "mds"
+description = "Fumadocs-inspired documentation theme for the Manufacture du Son project"
+license = "MIT"
+homepage = "https://github.com/naguirre/mds-builder"
+min_version = "0.18.0"
+
+[author]
+name = "Nicolas Aguirre"
+
+[extra]

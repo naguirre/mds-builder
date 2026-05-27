@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% set current_path = section.path %}
+
+{% block title %}{{ section.title | default(value=config.title) }} · {{ config.title }}{% endblock %}
+{% block description %}{{ section.description | default(value=config.description) }}{% endblock %}
+
+{% block content %}
+<article class="article">
+  <header class="article-header">
+    <h1>{{ section.title }}</h1>
+    {% if section.description %}<p class="lead">{{ section.description }}</p>{% endif %}
+  </header>
+  <div class="prose">
+    {{ section.content | safe }}
+  </div>
+</article>
+{% endblock %}

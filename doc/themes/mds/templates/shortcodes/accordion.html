@@ -1,0 +1,14 @@
+{# Usage:
+   {% accordion(title="Why musl?") %}
+   Buildroot is configured with musl to keep the rootfs small.
+   {% end %}
+#}
+<details class="accordion">
+  <summary class="accordion-summary">
+    <span>{{ title }}</span>
+    <svg class="accordion-chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="accordion-body">
+    {{ body | markdown(inline=false) | safe }}
+  </div>
+</details>

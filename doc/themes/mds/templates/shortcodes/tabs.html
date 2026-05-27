@@ -1,0 +1,38 @@
+{# Usage:
+   {% tabs(titles=["Native", "Docker"]) %}
+   ::: tab
+   make build
+   ::: tab
+   make build CONTAINER=1
+   :::
+   {% end %}
+#}
+{% set group_id = nth | default(value=1) %}
+{% set parts = body | split(pat="::: tab") %}
+{% set tab_id_prefix = "tabs-" ~ group_id %}
+
+<div class="tabs" data-tabs>
+  <div class="tabs-bar" role="tablist">
+    {% for title in titles %}
+      <button type="button"
+              class="tabs-trigger {% if loop.first %}is-active{% endif %}"
+              role="tab"
+              aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+              data-tab-target="{{ tab_id_prefix }}-{{ loop.index0 }}">
+        {{ title }}
+      </button>
+    {% endfor %}
+  </div>
+  <div class="tabs-panels">
+    {% for part in parts %}
+      {% if loop.index0 > 0 %}
+        {% set i = loop.index0 - 1 %}
+        <div class="tabs-panel {% if loop.index == 2 %}is-active{% endif %}"
+             role="tabpanel"
+             id="{{ tab_id_prefix }}-{{ i }}">
+          {{ part | trim | markdown(inline=false) | safe }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
