@@ -6,3 +6,4 @@ build/**
 user.env
 dl/**
 out/**
+mds_external/local.mk
