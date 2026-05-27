@@ -1,9 +1,2 @@
-# Example local overrides for Buildroot packages.
-#
-# Copy this file to local.mk and uncomment / edit the lines you need to point
-# Buildroot at a local source tree instead of downloading the upstream tarball.
-# local.mk is gitignored — it is meant for local development only.
-
-# ESP_HOSTED_OVERRIDE_SRCDIR = $(TOPDIR)/../../src/esp-hosted
-# LINUX_OVERRIDE_SRCDIR      = $(TOPDIR)/../../build/linux
-# MESA3D_OVERRIDE_SRCDIR     = $(TOPDIR)/../../src/mesa
+# LINUX_OVERRIDE_SRCDIR = $(TOPDIR)/../../build/linux
+# MESA3D_OVERRIDE_SRCDIR = $(TOPDIR)/../../src/mesa

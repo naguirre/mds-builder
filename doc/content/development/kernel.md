@@ -8,6 +8,33 @@ weight = 1
 
 The kernel is built by Buildroot like any other package. Iterating on it without a full rebuild is the most common loop.
 
+## Develop the kernel out-of-tree
+
+For larger kernel changes it is more convenient to keep a separate Linux
+checkout and have Buildroot pick it up instead of the tarball it would
+normally download.
+
+1. Clone the kernel next to the Buildroot tree:
+
+   ```sh
+   git clone https://github.com/torvalds/linux.git build/linux
+   git -C build/linux checkout v6.7
+   ```
+
+2. Tell Buildroot to use it via a local override file. Create
+   `mds_external/local.mk` (gitignored, see `local.mk.example`):
+
+   ```make
+   LINUX_OVERRIDE_SRCDIR = $(TOPDIR)/../../build/linux
+   ```
+
+3. Re-run `make build`. Buildroot will rsync from `build/linux/` instead
+   of fetching the upstream tarball.
+
+The same pattern works for any package — set
+`<PACKAGE>_OVERRIDE_SRCDIR` in `local.mk`. See the
+[overrides reference](/build/overrides) for the full mechanism.
+
 ## Build only the kernel
 
 ```bash

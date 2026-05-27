@@ -3,18 +3,3 @@
 	url = https://github.com/naguirre/esp-hosted.git
 	branch = users/nico/mds_integration
 	ignore = all
-[submodule "src/stm32_audio_interface/stm32f4xx-hal-driver"]
-	path = src/stm32_audio_interface/stm32f4xx-hal-driver
-	url = https://github.com/STMicroelectronics/stm32f4xx-hal-driver.git
-[submodule "src/stm32_audio_interface/stm32-meson"]
-	path = src/stm32_audio_interface/stm32-meson
-	url = https://gitlab.com/jhamberg/stm32-meson.git
-[submodule "src/stm32_audio_interface/STM32CubeF4"]
-	path = src/stm32_audio_interface/STM32CubeF4
-	url = https://github.com/STMicroelectronics/STM32CubeF4.git
-[submodule "src/stm32_audio_interface/tinyusb"]
-	path = src/stm32_audio_interface/tinyusb
-	url = https://github.com/hathach/tinyusb.git
-[submodule "src/stm32_audio_interface/src/tinyusb"]
-	path = src/stm32_audio_interface/src/tinyusb
-	url = https://github.com/hathach/tinyusb.git

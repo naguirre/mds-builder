@@ -31,3 +31,4 @@ make build CONTAINER=1
 - [Targets](/build/targets) — what each `make` target does
 - [Machines](/build/machines) — defconfigs and what they produce
 - [Buildroot external tree](/build/buildroot) — how `BR2_EXTERNAL` is organised
+- [Package overrides](/build/overrides) — replace a package source with a local checkout
