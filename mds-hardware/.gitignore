@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Claude Code
+.claude/
+
+# Local scratch
+tmp/
+
+# KiCad
+fp-info-cache
+*.kicad_prl
+*-backups/
+*.bak
+*.lck
+_autosave-*
