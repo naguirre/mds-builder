@@ -86,7 +86,7 @@ The Buildroot download cache and downloaded sources are preserved.
 make bootstrap
 ```
 
-…runs `bootstrap.sh`, which uses `sunxi-fel` to load the bootstrap image into RAM over USB. See [Bootstrap](/flashing/bootstrap) for the end-to-end flow.
+…runs `bootstrap.sh`, which uses `sunxi-fel` to load the bootstrap image into RAM over USB. See [Bootstrap](@/flashing/bootstrap.md) for the end-to-end flow.
 
 ## Help
 

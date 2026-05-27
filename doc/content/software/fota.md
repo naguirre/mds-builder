@@ -8,7 +8,7 @@ weight = 3
 
 Firmware Over-The-Air (FOTA) is built around a **dedicated recovery image** plus a **scratch partition**, all hosted on the SPI NAND.
 
-See [SPI NAND Partitioning](/hardware/partitioning) for the layout reference.
+See [SPI NAND Partitioning](@/hardware/partitioning.md) for the layout reference.
 
 ## The two Buildroot configurations
 
@@ -44,7 +44,7 @@ Loading file '/boot/suniv-f1c200s-...dtb' to addr 0x80fe0000...
 
 ## First-time setup (bootstrap)
 
-After the very first bootstrap (see [Bootstrap](/flashing/bootstrap)), all UBI volumes are still empty. They have to be created and populated:
+After the very first bootstrap (see [Bootstrap](@/flashing/bootstrap.md)), all UBI volumes are still empty. They have to be created and populated:
 
 ```bash
 # 1. Format each NAND partition as UBI

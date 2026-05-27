@@ -77,4 +77,4 @@ ssh root@192.168.2.2
 ```
 
 From here you are ready to actually write the firmware — head over to
-[SPI NAND flashing](/flashing/nand).
+[SPI NAND flashing](@/flashing/nand.md).

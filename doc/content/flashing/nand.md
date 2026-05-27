@@ -6,7 +6,7 @@ weight = 2
 
 # Flashing SPI NAND
 
-Once you have a working system on the board (either the [bootstrap image](/flashing/bootstrap) or a previously flashed firmware), you can write a fresh bootloader and rootfs to the SPI NAND.
+Once you have a working system on the board (either the [bootstrap image](@/flashing/bootstrap.md) or a previously flashed firmware), you can write a fresh bootloader and rootfs to the SPI NAND.
 
 ## On the host: copy artifacts to the board
 
@@ -22,7 +22,7 @@ scp -O out/network_player/rootfs.ubifs root@192.168.2.2:/mnt/data
 scp -O out/network_player/spi-nand.bin root@192.168.2.2:/mnt/data
 ```
 
-(Make sure `/mnt/data` is mounted from `ubi2_0` — see [FOTA strategy](/software/fota) for the one-time UBI setup.)
+(Make sure `/mnt/data` is mounted from `ubi2_0` — see [FOTA strategy](@/software/fota.md) for the one-time UBI setup.)
 
 ## On the board: erase, format, write
 
@@ -43,7 +43,7 @@ ubiformat /dev/mtd2
 ubiformat /dev/mtd3
 ```
 
-Attach and create volumes (one-time setup, see [FOTA strategy](/software/fota)):
+Attach and create volumes (one-time setup, see [FOTA strategy](@/software/fota.md)):
 
 ```bash
 ubiattach -p /dev/mtd1
@@ -87,7 +87,7 @@ Then, on the running U-Boot console:
 
 ## Gotchas
 
-- **LEB size**: the UBIFS image produced by Buildroot must match the LEB size of the runtime UBI device, otherwise mounting fails. See [SPI NAND Partitioning](/hardware/partitioning).
+- **LEB size**: the UBIFS image produced by Buildroot must match the LEB size of the runtime UBI device, otherwise mounting fails. See [SPI NAND Partitioning](@/hardware/partitioning.md).
 - **`reset` not supported**: some U-Boot defconfigs miss the watchdog reset driver and print
   `System reset not supported on this platform`. Power-cycle in that case, then fix the defconfig.
 - **`Wrong Image Type for bootm command`**: use the FIT image (see `image.its` in the board files).

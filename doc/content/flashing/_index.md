@@ -16,8 +16,8 @@ Two distinct workflows are involved in getting firmware onto the device:
 
 Each workflow has its own page:
 
-- [Bootstrap](/flashing/bootstrap) — initial load via `sunxi-fel`
-- [SPI NAND flashing](/flashing/nand) — `flashcp` for the bootloader, `ubiupdatevol` for the rootfs
-- [ESP32-C3 flashing](/flashing/esp32) — companion firmware
+- [Bootstrap](@/flashing/bootstrap.md) — initial load via `sunxi-fel`
+- [SPI NAND flashing](@/flashing/nand.md) — `flashcp` for the bootloader, `ubiupdatevol` for the rootfs
+- [ESP32-C3 flashing](@/flashing/esp32.md) — companion firmware
 
 > **Cable**: a single USB-C cable is enough for both flow steps — it provides power, USB FEL access, and the USB gadget Ethernet link.

@@ -33,7 +33,7 @@ normally download.
 
 The same pattern works for any package — set
 `<PACKAGE>_OVERRIDE_SRCDIR` in `local.mk`. See the
-[overrides reference](/build/overrides) for the full mechanism.
+[overrides reference](@/build/overrides.md) for the full mechanism.
 
 ## Build only the kernel
 

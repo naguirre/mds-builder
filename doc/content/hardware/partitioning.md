@@ -20,7 +20,7 @@ The 128 MiB SPI NAND is split into four MTD partitions. The first holds the SPL 
 
 ## Why this split
 
-This layout supports the [A/B firmware update strategy](/software/fota):
+This layout supports the [A/B firmware update strategy](@/software/fota.md):
 
 - `boot` is updated in place when reflashing the bootloader.
 - `fota` carries a minimal recovery image (initramfs + kernel) able to reflash `rootfs` even when the main system is broken.

@@ -13,7 +13,7 @@ A *machine* is just a Buildroot defconfig — concretely, `buildroot_config/mds_
 | Machine                          | Purpose                                                              |
 |----------------------------------|----------------------------------------------------------------------|
 | `network_player`                 | Default: the main rootfs (Linux + UBIFS) shipped on the device       |
-| `mds_network_player_bootstrap`   | Initial bring-up image — see [Bootstrap](/flashing/bootstrap)        |
+| `mds_network_player_bootstrap`   | Initial bring-up image — see [Bootstrap](@/flashing/bootstrap.md)        |
 | `mds_network_player_fota`        | Recovery initramfs used by the FOTA partition                        |
 | `mds_network_player_v2`          | Work in progress for the next hardware revision (see `README_v2.md`) |
 | `lmds_network_player`            | Variant defconfig (legacy / experimental)                            |

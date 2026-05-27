@@ -28,5 +28,5 @@ make build              # build the network player firmware natively
 make build CONTAINER=1  # build inside the Docker container
 ```
 
-Output images land in `output/images/`. See the [flashing guide](/flashing) for
+Output images land in `output/images/`. See the [flashing guide](@/flashing/_index.md) for
 the next steps.

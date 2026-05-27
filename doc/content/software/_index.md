@@ -26,6 +26,6 @@ The firmware is a fully custom Linux distribution assembled with [Buildroot](htt
 
 ## Sections
 
-- [Architecture](/software/architecture) — how the bits fit together
-- [Boot flow](/software/boot-flow) — step-by-step from BootROM to userspace
-- [FOTA strategy](/software/fota) — A/B updates and the recovery path
+- [Architecture](@/software/architecture.md) — how the bits fit together
+- [Boot flow](@/software/boot-flow.md) — step-by-step from BootROM to userspace
+- [FOTA strategy](@/software/fota.md) — A/B updates and the recovery path

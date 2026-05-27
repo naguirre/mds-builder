@@ -66,7 +66,7 @@ losetup /dev/loop0 /mnt/fat32.part
 |------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | `System reset not supported on this platform` in U-Boot                | Watchdog reset support missing in U-Boot defconfig — enable it and rebuild.                                  |
 | `Wrong Image Type for bootm command`                                   | Use the FIT image (`image.its` / `*.itb`) instead of legacy uImage.                                          |
-| `UBIFS error: LEB size mismatch: 129024 in superblock, 126976 real`    | Buildroot UBIFS LEB size differs from the runtime UBI device. See [SPI NAND Partitioning](/hardware/partitioning). |
+| `UBIFS error: LEB size mismatch: 129024 in superblock, 126976 real`    | Buildroot UBIFS LEB size differs from the runtime UBI device. See [SPI NAND Partitioning](@/hardware/partitioning.md). |
 | `ubi: mtd1 is already attached to ubi0`                                | The volume is still attached from a previous attempt. `ubidetach -p /dev/mtd1` first.                        |
 | `failed to load regulatory.db`                                         | Cosmetic — the Wi-Fi regulatory DB blob is not shipped; safe to ignore.                                      |
 | `SPI driver fb_ili9340 has no spi_device_id for ilitek,ili9340`        | Optional LCD probe; cosmetic if you do not use the display.                                                  |

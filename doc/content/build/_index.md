@@ -27,8 +27,8 @@ make build CONTAINER=1
 
 ## Sections
 
-- [Prerequisites](/build/prerequisites) — host packages, Docker option
-- [Targets](/build/targets) — what each `make` target does
-- [Machines](/build/machines) — defconfigs and what they produce
-- [Buildroot external tree](/build/buildroot) — how `BR2_EXTERNAL` is organised
-- [Package overrides](/build/overrides) — replace a package source with a local checkout
+- [Prerequisites](@/build/prerequisites.md) — host packages, Docker option
+- [Targets](@/build/targets.md) — what each `make` target does
+- [Machines](@/build/machines.md) — defconfigs and what they produce
+- [Buildroot external tree](@/build/buildroot.md) — how `BR2_EXTERNAL` is organised
+- [Package overrides](@/build/overrides.md) — replace a package source with a local checkout

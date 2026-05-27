@@ -13,7 +13,7 @@ This section collects the things you reach for during normal development cycles:
 
 ## Sections
 
-- [Kernel development](/development/kernel) — iterate on Linux + custom drivers
-- [U-Boot development](/development/uboot) — iterate on the bootloader and DTS
-- [Debugging](/development/debugging) — console access, USB gadget, common issues
-- [ESP-Hosted firmware](/development/esp-hosted) — rebuild the ESP32-C3 firmware and bring up the Wi-Fi link
+- [Kernel development](@/development/kernel.md) — iterate on Linux + custom drivers
+- [U-Boot development](@/development/uboot.md) — iterate on the bootloader and DTS
+- [Debugging](@/development/debugging.md) — console access, USB gadget, common issues
+- [ESP-Hosted firmware](@/development/esp-hosted.md) — rebuild the ESP32-C3 firmware and bring up the Wi-Fi link
