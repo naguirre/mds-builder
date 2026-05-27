@@ -1,4 +1,5 @@
-<a class="card" href="{{ href }}">
+{% if href is starting_with("http") %}{% set link = href %}{% else %}{% set link = get_url(path=href) %}{% endif %}
+<a class="card" href="{{ link | safe }}">
   <div class="card-body">
     <div class="card-title">
       <span>{{ title }}</span>
