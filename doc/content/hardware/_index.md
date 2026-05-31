@@ -9,6 +9,8 @@ page_template = "page.html"
 
 # Hardware
 
+{{ img(path="images/familly.jpeg", alt="The network player board family") }}
+
 The Manufacture du Son network player is a custom-designed board built around two main chips:
 
 - An **Allwinner f1c200s** ARM926EJ-S SoC, which runs Linux and handles audio output, USB and storage.

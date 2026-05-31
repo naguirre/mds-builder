@@ -57,3 +57,17 @@ v1.1 is the version that was actually fabricated and assembled by JLCPCB. Compar
 - ESP32 moved to SPI1; SPI0 is now shared between the NAND flash and the RPi connector
 
 {{ img(path="hardware/v1.1/schematic.png", alt="v1.1 schematic") }}
+
+### Assembled boards
+
+The v1.1 board as assembled by JLCPCB:
+
+{{ img(path="images/v1.1_top.jpeg", alt="Network player v1.1, top side") }}
+
+{{ img(path="images/v1.1_bottom.jpeg", alt="Network player v1.1, bottom side") }}
+
+For reference, the earlier v1 board:
+
+{{ img(path="images/v1.0_top.jpeg", alt="Network player v1, top side") }}
+
+{{ img(path="images/v1.0_bottom.jpeg", alt="Network player v1, bottom side") }}
