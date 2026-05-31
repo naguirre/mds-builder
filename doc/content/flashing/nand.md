@@ -8,6 +8,10 @@ weight = 2
 
 Once you have a working system on the board (either the [bootstrap image](@/flashing/bootstrap.md) or a previously flashed firmware), you can write a fresh bootloader and rootfs to the SPI NAND.
 
+> For a fresh board, the [bootstrap](@/flashing/bootstrap.md) flow (`./bootstrap.sh` or the
+> `make bootstrap-bundle` `.run`) runs every step below automatically over SSH. The manual
+> procedure here is kept as reference and for one-off re-flashes.
+
 ## On the host: copy artifacts to the board
 
 After `make build MACHINE=network_player`, the relevant output files live in `out/network_player/`:

@@ -1,34 +1,32 @@
 +++
 title = "Bootstrap"
-description = "Loading the initial RAM-only image via USB FEL"
+description = "Loading the initial RAM-only image via USB FEL and provisioning the NAND"
 weight = 1
 +++
 
 # Bootstrap
 
-The bootstrap workflow runs a temporary Linux system entirely from RAM, just long enough to write the real firmware onto the SPI NAND.
+The bootstrap workflow runs a temporary Linux system entirely from RAM, just long enough to write the real firmware onto the SPI NAND. The whole flow — FEL push, autoboot, and NAND provisioning over SSH — is driven by [`bootstrap.sh`](https://github.com/naguirre/mds-builder/blob/main/bootstrap.sh).
 
 ## Prerequisites
 
 - [`sunxi-fel`](https://github.com/linux-sunxi/sunxi-tools) cloned/built somewhere reachable
-  (the project assumes `~/Dev/sunxi-tools/sunxi-fel`).
+  (the project assumes `~/Dev/sunxi-tools/sunxi-fel`; override with `SUNXI_FEL=...`).
+- `sshpass` installed on the host — the board's Dropbear only does password auth (`root`/`root`),
+  and the script runs every `ssh`/`scp` non-interactively. Override the password with `SSH_PASS=...`.
 - A USB-C cable between host and board.
-- A USB-to-serial adapter wired to the board's UART, accessible as e.g.
-  `/dev/ttyUSB0` (Linux) or `/dev/tty.usbserial-FTA02VH8` (macOS).
-- A terminal program — `picocom`, `minicom` or similar.
+- The host USB-Ethernet interface configured as `192.168.2.1/24` (the board comes up as `192.168.2.2`).
+  The script does not bring this up; configure it once the gadget enumerates.
+- *(optional)* A USB-to-serial adapter on the board's UART (`/dev/ttyUSB0`, …) for monitoring.
 
-## Step 1: Build the bootstrap image
+## Step 1: Build the images
 
 ```bash
-make build MACHINE=mds_network_player_bootstrap
+make build MACHINE=network_player_bootstrap   # RAM-only bootstrap image
+make build MACHINE=network_player             # production firmware to flash
 ```
 
-The output is dropped into `out/network_player_bootstrap/`:
-
-- `u-boot-sunxi-with-spl.bin`
-- `uImage`
-- `rootfs.cpio.uboot`
-- `suniv-f1c200s-mds-network-streamer-v1.0.dtb`
+Outputs land in `out/network_player_bootstrap/` and `out/network_player/`.
 
 ## Step 2: Put the board into FEL mode
 
@@ -36,45 +34,69 @@ The output is dropped into `out/network_player_bootstrap/`:
 2. Press and release the f1c200s reset button.
 3. Release the `BOOT` button.
 
-The board should now appear on the host as a USB device with the Allwinner FEL VID/PID. Verify with:
+Verify with `sunxi-fel ver`.
+
+## Step 3: Run the bootstrap
 
 ```bash
-sunxi-fel ver
-```
-
-## Step 3: Push the image over USB
-
-The [`bootstrap.sh`](https://github.com/naguirre/mds-builder/blob/main/bootstrap.sh) script wraps the `sunxi-fel` calls and the U-Boot interaction:
-
-```bash
-./bootstrap.sh /dev/tty.usbserial-FTA02VH8
+./bootstrap.sh /dev/ttyUSB0     # serial arg is optional (monitoring only)
 ```
 
 What it does:
 
-1. Calls `sunxi-fel` with `write-with-progress` four times to push:
-   - the SPL+U-Boot at `0x80000000`,
-   - the kernel `uImage` at `0x80000000` (overwritten — SPL puts U-Boot somewhere safe),
-   - the `rootfs.cpio.uboot` at `0x80500000`,
-   - the DTB at `0x80FE0000`.
-2. Sends a few empty lines on the serial port to interrupt U-Boot autoboot.
-3. Sends `bootm 0x80000000 0x80500000 0x80FE0000` to launch the in-RAM image.
+1. Drops the stale SSH host key for `192.168.2.2`.
+2. Pushes the bootstrap image over FEL with `sunxi-fel`, using the fixed RAM layout:
+   - SPL+U-Boot loaded by `sunxi-fel uboot`,
+   - kernel `uImage` at `0x80000000`,
+   - `rootfs.cpio.uboot` at `0x82800000`,
+   - DTB at `0x83A00000`.
+3. **U-Boot autoboots on its own** (`CONFIG_BOOTDELAY=1`) using the compiled-in `bootcmd`
+   (`bootm ${kernel_addr} ${ramdisk_addr} ${fdt_addr}` — see `uboot.bootstrap.env`).
+   The script sends **nothing** on the serial line; if a serial device is given it is only
+   read, prefixed with `[serial]`, to follow the boot.
+4. Waits for SSH on `root@192.168.2.2`, then provisions the NAND (see below).
 
-## Step 4: Talk to the running bootstrap
+### RAM layout
 
-Open a serial console:
+DRAM is `0x80000000`–`0x84000000` (64 MiB). The blocks are kept disjoint so U-Boot's
+relocation never clobbers a neighbour:
+
+| Block | Address | Offset | Budget |
+|---|---|---|---|
+| uImage source (copied by `bootm` to `0x82000000`) | `0x80000000` | +0 | 6 MiB |
+| kernel destination (`UIMAGE_LOADADDR`) | `0x82000000` | +32 MiB | 6 MiB |
+| initramfs `rootfs.cpio.uboot` | `0x82800000` | +40 MiB | 16 MiB |
+| DTB | `0x83A00000` | +58 MiB | 128 KiB |
+| `initrd_high` / `fdt_high` ceiling | `0x83C00000` | +60 MiB | — |
+
+Nothing sits below `0x82000000` at runtime, which avoids both the kernel-reserved low zone
+(otherwise the initrd is dropped with `overlaps in-use memory region`) and the DTB being
+overwritten by initrd relocation. The build warns if `uImage` or `rootfs.cpio` outgrows its
+budget (see `post-images.sh`).
+
+## Step 4: NAND provisioning
+
+Once SSH is up, `bootstrap.sh` provisions the NAND automatically (commands run over SSH):
+
+1. `scp` `spi-nand.bin` and `rootfs.ubifs` to `/tmp` on the board.
+2. `flash_erase` `mtd0`–`mtd3`.
+3. `ubiformat` + `ubiattach` `mtd1`–`mtd3`, then `ubimkvol` the `fota` / `rootfs` / `data` volumes.
+4. `flashcp spi-nand.bin /dev/mtd0` and `ubiupdatevol /dev/ubi1_0 rootfs.ubifs`.
+5. `reboot`.
+
+After reboot the board comes up from NAND with the production firmware. If it does not reset
+(some U-Boot defconfigs miss the watchdog reset driver), power-cycle it.
+
+The manual equivalent of these steps is documented in [SPI NAND flashing](@/flashing/nand.md).
+
+## One-command bundle
+
+`make bootstrap-bundle` builds both images and packs everything (scripts + artifacts) into a
+self-extracting [`makeself`](https://makeself.io/) archive:
 
 ```bash
-picocom -b 115200 /dev/tty.usbserial-FTA02VH8
+make bootstrap-bundle              # produces bootstrap-<version>.run
+./bootstrap-<version>.run -- /dev/ttyUSB0
 ```
 
-You should land on a Linux login prompt. Default credentials: **`root` / `root`**.
-
-The bootstrap also brings up the USB Ethernet gadget. Once the host enumerates the new interface (assign it `192.168.2.1/24`), you can SSH in:
-
-```bash
-ssh root@192.168.2.2
-```
-
-From here you are ready to actually write the firmware — head over to
-[SPI NAND flashing](@/flashing/nand.md).
+The `.run` extracts itself and executes the full bootstrap + provisioning flow end to end.
