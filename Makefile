@@ -115,8 +115,39 @@ br-downloads: build/.stamp-br-downloads ## Download buildroot source code
 .PHONY: br-downloads
 
 ### bootstrap ###
-bootstrap:
-	sh ./bootstrap.sh
+bootstrap: ## Run the bootstrap + NAND provisioning (pass SERIAL=/dev/ttyUSB0 to monitor)
+	./bootstrap.sh $(SERIAL)
+.PHONY: bootstrap
+
+### bootstrap self-extracting bundle (makeself) ###
+BUNDLE_NAME ?= bootstrap-$(BUILD_VERSION).run
+BUNDLE_STAGING := $(WORKSPACE)/build/bootstrap-bundle
+BOOTSTRAP_OUT := $(WORKSPACE)/out/network_player_bootstrap
+PROD_OUT := $(WORKSPACE)/out/network_player
+
+bootstrap-bundle: ## Build a self-extracting .run that bootstraps + provisions a board
+	@command -v makeself >/dev/null 2>&1 || { \
+		echo "ERROR: makeself not found. Install it (e.g. apt install makeself)." >&2; exit 1; }
+	@echo ">>> Building bootstrap artifacts"
+	$(MAKE) build MACHINE=network_player_bootstrap
+	@echo ">>> Building production artifacts"
+	$(MAKE) build MACHINE=network_player
+	@echo ">>> Staging bundle in $(BUNDLE_STAGING)"
+	rm -rf "$(BUNDLE_STAGING)"
+	mkdir -p "$(BUNDLE_STAGING)"
+	install -m 0755 bootstrap.sh "$(BUNDLE_STAGING)/bootstrap.sh"
+	cp "$(BOOTSTRAP_OUT)/u-boot-sunxi-with-spl.bin" "$(BUNDLE_STAGING)/"
+	cp "$(BOOTSTRAP_OUT)/uImage" "$(BUNDLE_STAGING)/"
+	cp "$(BOOTSTRAP_OUT)/rootfs.cpio.uboot" "$(BUNDLE_STAGING)/"
+	cp "$(BOOTSTRAP_OUT)/suniv-f1c200s-mds-network-streamer-v1.0.dtb" "$(BUNDLE_STAGING)/"
+	cp "$(PROD_OUT)/spi-nand.bin" "$(BUNDLE_STAGING)/"
+	cp "$(PROD_OUT)/rootfs.ubifs" "$(BUNDLE_STAGING)/"
+	@echo ">>> Packing $(BUNDLE_NAME)"
+	makeself "$(BUNDLE_STAGING)" "$(WORKSPACE)/$(BUNDLE_NAME)" \
+		"MDS Network Player bootstrap $(BUILD_VERSION)" ./bootstrap.sh
+	@echo ">>> Bundle ready: $(WORKSPACE)/$(BUNDLE_NAME)"
+	@echo ">>> Run it with: ./$(BUNDLE_NAME) -- /dev/ttyUSB0"
+.PHONY: bootstrap-bundle
 
 ### CONTAINER RULES ###
 
