@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="500" viewBox="0 0 850 500" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+    <marker id="arrowStart" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M8,0 L0,3 L8,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- edges (drawn first, under the boxes) -->
+  <!-- ESP <-> SoC : SPI1 -->
+  <line x1="430" y1="110" x2="430" y2="200" stroke="#555" stroke-width="1.5" marker-start="url(#arrowStart)" marker-end="url(#arrow)"/>
+  <text x="438" y="160" font-size="11" fill="#333">SPI1</text>
+
+  <!-- NAND <-> SoC : SPI0 boot -->
+  <line x1="210" y1="215" x2="330" y2="235" stroke="#555" stroke-width="1.5" marker-start="url(#arrowStart)" marker-end="url(#arrow)"/>
+  <text x="225" y="212" font-size="11" fill="#333">SPI0 (boot)</text>
+
+  <!-- RPi <-> SoC : SPI0 shared -->
+  <line x1="210" y1="300" x2="330" y2="270" stroke="#555" stroke-width="1.5" marker-start="url(#arrowStart)" marker-end="url(#arrow)"/>
+  <text x="222" y="305" font-size="11" fill="#333">SPI0 (shared)</text>
+
+  <!-- SoC -> SPDIF -->
+  <line x1="530" y1="235" x2="650" y2="210" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="545" y="212" font-size="11" fill="#333">I2S/SPDIF</text>
+
+  <!-- SPDIF -> DAC -->
+  <line x1="730" y1="240" x2="730" y2="270" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="738" y="262" font-size="11" fill="#333">optical/coax</text>
+
+  <!-- USB <-> SoC -->
+  <line x1="430" y1="400" x2="430" y2="300" stroke="#555" stroke-width="1.5" marker-start="url(#arrowStart)" marker-end="url(#arrow)"/>
+
+  <!-- ESP32-C3 -->
+  <rect x="330" y="40" width="200" height="70" rx="8" fill="#d5e8d4" stroke="#82b366" stroke-width="1.5"/>
+  <text x="430" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b3d1b">ESP32-C3</text>
+  <text x="430" y="80" text-anchor="middle" font-size="11" fill="#1b3d1b">Wi-Fi 2.4 GHz + BLE 5.0</text>
+  <text x="430" y="96" text-anchor="middle" font-size="11" fill="#1b3d1b">ESP-Hosted-NG</text>
+
+  <!-- F1C200s SoC -->
+  <rect x="330" y="200" width="200" height="100" rx="8" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2"/>
+  <text x="430" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#13325c">Allwinner F1C200s</text>
+  <text x="430" y="247" text-anchor="middle" font-size="11" fill="#13325c">ARM926EJ-S (ARMv5TE)</text>
+  <text x="430" y="263" text-anchor="middle" font-size="11" fill="#13325c">64 MiB DRAM in-package</text>
+  <text x="430" y="279" text-anchor="middle" font-size="11" fill="#13325c">runs mainline Linux</text>
+
+  <!-- SPI NAND -->
+  <rect x="40" y="180" width="170" height="70" rx="8" fill="#ffe6cc" stroke="#d79b00" stroke-width="1.5"/>
+  <text x="125" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b4900">SPI NAND</text>
+  <text x="125" y="220" text-anchor="middle" font-size="11" fill="#6b4900">128 MiB (Winbond)</text>
+  <text x="125" y="236" text-anchor="middle" font-size="11" fill="#6b4900">SPL + rootfs + FOTA</text>
+
+  <!-- 40-pin header -->
+  <rect x="40" y="270" width="170" height="60" rx="8" fill="#ffe6cc" stroke="#d79b00" stroke-width="1.5"/>
+  <text x="125" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b4900">40-pin header</text>
+  <text x="125" y="313" text-anchor="middle" font-size="11" fill="#6b4900">GPIO / I2C / SPI</text>
+
+  <!-- SPDIF -->
+  <rect x="650" y="180" width="160" height="60" rx="8" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="730" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#665c1a">SPDIF out</text>
+  <text x="730" y="223" text-anchor="middle" font-size="11" fill="#665c1a">sun4i-spdif</text>
+
+  <!-- External DAC -->
+  <rect x="650" y="270" width="160" height="60" rx="8" fill="#f5f5f5" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="730" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#555">External DAC</text>
+  <text x="730" y="313" text-anchor="middle" font-size="11" fill="#555">(your choice)</text>
+
+  <!-- USB-C -->
+  <rect x="320" y="400" width="220" height="70" rx="8" fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="430" y="424" text-anchor="middle" font-size="13" font-weight="bold" fill="#4a2c5a">USB-C</text>
+  <text x="430" y="442" text-anchor="middle" font-size="11" fill="#4a2c5a">5V power + console + USB OTG</text>
+  <text x="430" y="458" text-anchor="middle" font-size="11" fill="#4a2c5a">(FEL + gadget ethernet)</text>
+</svg>

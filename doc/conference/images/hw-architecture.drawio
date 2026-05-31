@@ -1,0 +1,63 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="hw-arch" name="HW Architecture">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- F1C200s SoC (center) -->
+        <mxCell id="soc" value="Allwinner F1C200s&#10;ARM926EJ-S (ARMv5TE)&#10;64 MiB DRAM in-package&#10;runs mainline Linux" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="330" y="200" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ESP32-C3 -->
+        <mxCell id="esp" value="ESP32-C3&#10;Wi-Fi 2.4 GHz + BLE 5.0&#10;ESP-Hosted-NG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="330" y="40" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- SPI NAND -->
+        <mxCell id="nand" value="SPI NAND&#10;128 MiB (Winbond)&#10;SPL + rootfs + FOTA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="170" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- RPi connector -->
+        <mxCell id="rpi" value="40-pin header&#10;GPIO / I2C / SPI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="170" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- SPDIF / DAC -->
+        <mxCell id="spdif" value="SPDIF out&#10;sun4i-spdif" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="180" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dac" value="External DAC&#10;(your choice)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;dashed=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="270" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- USB-C -->
+        <mxCell id="usb" value="USB-C&#10;5V power + console + USB OTG&#10;(FEL + gadget ethernet)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="400" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- edges -->
+        <mxCell id="e1" value="SPI1" style="endArrow=classic;startArrow=classic;html=1;fontSize=11;" edge="1" parent="1" source="esp" target="soc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="SPI0 (boot)" style="endArrow=classic;startArrow=classic;html=1;fontSize=11;" edge="1" parent="1" source="nand" target="soc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="SPI0 (shared)" style="endArrow=classic;startArrow=classic;html=1;fontSize=11;" edge="1" parent="1" source="rpi" target="soc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="I2S/SPDIF" style="endArrow=classic;html=1;fontSize=11;" edge="1" parent="1" source="soc" target="spdif">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="optical/coax" style="endArrow=classic;html=1;fontSize=11;" edge="1" parent="1" source="spdif" target="dac">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="1" source="usb" target="soc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
