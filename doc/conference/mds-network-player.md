@@ -1,225 +1,321 @@
 ---
 title: "La Manufacture du Son"
-sub_title: "Building an open-source network audio player, from KiCad to Linux"
-author: "Nicolas Aguirre  -  Toulouse Embedded Meetup, 16 June 2026"
+sub_title: "Construire un lecteur audio réseau open source, de KiCad à Linux"
+author: "Nicolas Aguirre / Toulouse Embedded Meetup, 16 juin 2026"
 theme:
-  name: light
+  name: light # Sinon tu passes pour un newbie
 options:
   end_slide_shorthand: true
 ---
 
-Hello
+Bonjour !
 ===
 
-> Toulouse Embedded Meetup, 16 June 2026
+> Toulouse Embedded Meetup, 16 juin 2026
 
-# Who am I
+# Qui suis-je
 
-- **Nicolas Aguirre**, embedded software engineer at **Loft Orbital**
-- Building Linux kernels since the beginning of the century (maybe the last one)
-- Studies in microelectronics.
-- Background in FPGA, microcontroller, and Embedded Linux
+- **Nicolas Aguirre**, Directeur Embedded SW and FPGA chez **Loft Orbital**
+- Je build du kernel Linux depuis le début du siècle (peut-être le precedent)
+- Études en microélectronique.
+- Expérience en FPGA, microcontrôleurs et Linux embarqué
+- Heureux Papa de 3 files.
 
 <!-- pause -->
 
-## Why this project
-
-- I love listening to music, but I love the gears even more:
-  amplifiers, DACs, A/V receivers, radios
-- I love open hardware and open source, so I wanted a small network
-  audio streamer that *I* fully control
-- I love learning, so this was an excuse to go end to end:
-  schematic, PCB, bring-up, Linux, audio
-
-<!-- pause -->
-
-> "If you do not own a PCBA by 50, you have wasted your life."
-> Jacques S, 2009.
-
-> The whole thing is open source: hardware (CERN-OHL-P) and software (MIT).
-> `https://naguirre.github.io/mds-builder/`
-
-<!-- end_slide -->
-
-What we are building
-===
-
-![](images/familly.jpeg)
-
-<!-- speaker_note: the family of boards across versions -->
-
-<!-- end_slide -->
-
-The product in one sentence
-===
-
-# A headless SPDIF network streamer
-
-<!-- pause -->
-
-- Plug it into the network, it exposes digital audio over SPDIF
-- Pair it with the DAC of your choice
-- Powered and reachable over a single USB-C cable
-
-<!-- pause -->
-
-```
-   [ network / wifi ]
-          |
-     +----------+        SPDIF
-     |   MDS    | ----------------> [ external DAC ] --> sound
-     +----------+
-          |
-        USB-C  (power + console + gadget ethernet)
-```
-
-<!-- end_slide -->
-
-Agenda
-===
-
-1. Hardware architecture, the silicon
-2. CAD with KiCad, drawing the thing
-3. Routing and constraints, making it manufacturable
-4. Sending it to production, JLCPCB
-5. Receiving the board and bootstrap, first power-up
-6. Embedded dev as a logbook, the real story with bugs included
-7. The result
-
-<!-- end_slide -->
-
-1. Hardware architecture
-===
-
-# Block diagram
-
-![image:width:90%](images/hw-architecture.png)
-
-<!-- end_slide -->
-
-1. Hardware architecture
-===
-
-# The silicon
+## Pourquoi ce projet
 
 <!-- column_layout: [3, 2] -->
 
 <!-- column: 0 -->
 
-**Main SoC, Allwinner F1C200s**
-
-- ARM926EJ-S, ARMv5TE
-- 64 MiB DRAM packaged inside the SoC
-- Cheap, tiny, mainline Linux support
-- Boots from SPI NAND
-
-**Companion, ESP32-C3**
-
-- Wi-Fi 2.4 GHz and BLE 5.0
-- Talks to the F1C200s over SPI
-- Integrated via ESP-Hosted-NG
+- J'aime écouter de la musique et en jouer, mais j'aime encore plus le matos :
+  amplis class A/B/D, DAC, amplis home cinéma, radios en tout genre
+- J'aime l'Open Hardware et l'Open Source, alors je voulais un petit
+  streamer audio réseau que *je* contrôle entièrement
+- J'aime apprendre, donc c'était un prétexte pour tout faire de bout en bout :
+  schématique, PCB, bring-up, Linux (mainline), DAC, Meca.
 
 <!-- column: 1 -->
 
-**Storage**
+![image:width:100%](images/marantz_front.jpeg)
 
-- 128 MiB SPI NAND (Winbond)
+![image:width:100%](images/marantz_rear.jpeg)
+
+<!-- end_slide -->
+
+> « Si tu ne possèdes pas un PCBA à 50 ans, tu as raté ta vie. »
+> Jacques S, 2009.
+
+> Tout est open source : le hardware (CERN-OHL-P) et le build system (MIT).
+> `https://naguirre.github.io/mds-builder/`
+
+<!-- end_slide -->
+
+Le premier née dand la gamme MDS : Binky
+===
+
+# Binky(s)
+
+<!-- column_layout: [1, 1, 1] -->
+
+<!-- column: 0 -->
+
+![image:width:100%](images/binky_v0.jpeg)
+
+<!-- column: 1 -->
+
+![image:width:100%](images/binky_v0_2.jpeg)
+
+<!-- column: 2 -->
+
+![image:width:100%](images/binky_v2.jpeg)
+
+<!-- reset_layout -->
+
+- « Binky », c'est une premier enceinte en bois faites main, pour ma fille de 3 ans. Une boîte à musique à cartes RFID 
+- On présente une carte, elle joue l'album correspondant, pas d'écran, pas de boutons
+- Parfait pour les tout petits. 
+- A l'interieur une Raspberry PI zero + DAC et un lecteur RFID.
+
+
+<!-- end_slide -->
+
+Les boîtiers Binky
+===
+
+<!-- column_layout: [1, 1, 1] -->
+
+<!-- column: 0 -->
+
+![image:width:100%](images/binky_v0_3.jpeg)
+
+<!-- column: 1 -->
+
+![image:width:100%](images/binky_v1.jpeg)
+
+<!-- column: 2 -->
+
+![image:width:100%](images/binky_v3.jpeg)
+
+<!-- reset_layout -->
+
+- Les binky ont evoluées avec mes enfants
+- Quand les cartes on pas ete suffisantes, on a ajoute un ecran
+- Et finalement pour les grands ca marchait bien aussi.
+- On a meme une carte RFID france inter, et radio nova.
+
+<!-- end_slide -->
+
+Les premiers prototypes MDS
+===
+
+# De la breadboard à la carte sous la loupe
+
+<!-- column_layout: [1, 1, 1] -->
+
+<!-- column: 0 -->
+
+![image:width:100%](images/mds_v0.jpeg)
+
+<!-- column: 1 -->
+
+![image:width:100%](images/mds_v0_2.jpeg)
+
+<!-- column: 2 -->
+
+![image:width:100%](images/mds_v0_3.jpeg)
+
+<!-- reset_layout -->
+- En parallele, cette envie de ne pas utiliser de RPI
+- Les premières cartes d'ampli MDS câblées. Just un ESP32 + amplid/dac TI
+- Premier design PCB fabrique chez JLCPCB et soude a la main
+- Le probleme c'est que l'ESP32 est un peu juste pour toutes les situations de decodage audio.
+<!-- end_slide -->
+
+Ce dont on va parler :
+===
+
+![](images/familly.jpeg)
+
+
+<!-- end_slide -->
+
+Sommaire
+===
+
+1. Architecture matérielle
+2. CAO avec KiCad
+3. Routage et contraintes
+4. Envoi en production (Chut, chut pas de marques)
+5. Réception de la carte, bootstrap
+6. La partie facile boot d'un U-Boot et Linux upstream
+
+<!-- end_slide -->
+
+L'inspiration
+===
+
+# Une carte de visite qui fait tourner Linux
+
+<!-- column_layout: [1, 1] -->
+
+<!-- column: 0 -->
+
+![image:width:100%](images/george_hilliard_credit_Card.png)
+
+<!-- column: 1 -->
+
+- La célèbre carte de visite F1C100s de George Hilliard qui démarre Linux
+
+<!-- pause -->
+
+> Crédit : George Hilliard, `github.com/thirtythreeforty`.
+> Si un SoC tient sur une carte de visite, il tient dans un streamer réseau.
+
+<!-- end_slide -->
+
+1. Architecture matérielle
+===
+
+# Schéma de principe
+
+![image:width:90%](images/hw-architecture.png)
+
+<!-- end_slide -->
+
+1. Architecture matérielle
+===
+
+# Les composants
+
+<!-- column_layout: [3, 2] -->
+
+<!-- column: 0 -->
+
+**SoC principal, Allwinner F1C200s**
+
+- ARM926EJ-S, ARMv5TE (C'est du rechauffé, c'est l'archi qui faisait le buzz quand je faisait mes etures)
+- 64 MiB de DRAM intégrés dans le SoC
+- Pas cher (en 2024), , support Linux mainline a 95%
+
+![image:width:90%](images/ARM926EJ-S.png)
+
+![image:width:90%](images/f1c200s_app_diagram.png)
+
+**Compagnon, ESP32-C3**
+
+- Wi-Fi 2,4 GHz et BLE 5.0
+- RISC-V 160Mhz
+- 400 KiB RAM
+- En module tout integre avec 8MiB de Flash
+
+<!-- column: 1 -->
+
+**Stockage**
+
+- 128 Mio de NAND SPI (Winbond)
 
 **Audio**
 
-- SPDIF out (`sun4i-spdif`)
-- no on-board DAC by design
+- Sortie SPDIF (`sun4i-spdif`)
+- pas de DAC embarqué, par choix
 
-**Power and IO**
+**Alimentation et E/S**
 
-- 5V over USB-C
-- USB OTG for FEL and gadget eth
-- 40-pin extension header
+- 5 V via USB-C
+- USB OTG pour FEL et ethernet gadget
+- Connecteur d'extension 40 broches
 
 <!-- end_slide -->
 
-1. Why this combo
+1. Pourquoi cette combinaison
 ===
 
-# Design trade-offs
+# Compromis de conception
 
-| Choice | Why |
-| --- | --- |
-| F1C200s | DRAM in package, so a tiny BOM and simpler routing |
-| ESP32-C3 for radio | Offload Wi-Fi rather than fight it on an ARMv5 SoC |
-| SPI NAND | Cheap, plenty for a Buildroot rootfs |
-| SPDIF only | Audiophiles bring their own DAC, keeps analog off my board |
-| USB-C single cable | Power, serial console and ethernet gadget in one |
+- F1C200s : DRAM dans le boîtier, donc BOM minuscule et routage simplifié, soudure a la main envisageable. pas cher
+- ESP32-C3 pour le WIFI et Bluetooth, [esp_hosted_ng](https://github.com/espressif/esp-hosted/blob/master/esp_hosted_ng/README.md). pas cher
+- NAND SPI, largement suffisant pour un rootfs Buildroot. pas cher.
+- Câble USB-C, Alimentation, FEL et ethernet gadget
+- Alimentation 3Channels buck converters EA3036. pas cher.
+- Un connecteur d'extension 40pins compatible RPI.
+<!-- pause -->
+
+> C'est bien 64MiB de RAM et 1Gbit SPI NAND (Obsolete depuis)
+
+<!-- end_slide -->
+
+2. CAO avec KiCad
+===
+
+# Dessiner la chose
+
+- Conçu entièrement sous KiCad (7.x, puis 8.x en cours de route)
+- Deux projets dans le dépôt sous `mds-hardware/` :
+  - `network_player/`, la carte principale
+  - `dac/`, une carte fille DAC audio optionnelle
 
 <!-- pause -->
 
-> Constraint-driven design: 64 MiB of RAM dictates musl libc, a trimmed
-> kernel, and a BusyBox userspace.
+Le projet dac etait une tentative de DAC avec un ES9023. mort né, jamais cable
+
 
 <!-- end_slide -->
 
-2. CAD with KiCad
-===
-
-# Drawing the thing
-
-- Designed entirely in KiCad (7.x, then 8.x along the way)
-- Fully open toolchain, no license, no cloud
-- Two projects in the repo under `mds-hardware/`:
-  - `network_player/`, the main board
-  - `dac/`, an optional audio DAC daughter board
-
-<!-- pause -->
-
-```
-mds-hardware/
-  network_player/
-    network_player.kicad_pro
-    network_player.kicad_sch
-    network_player.kicad_pcb
-  dac/
-    dac.kicad_{pro,sch,pcb}
-```
-
-> KiCad files are plain text, so they diff and version in git like code.
-
-<!-- end_slide -->
-
-2. The schematic
+2. Le schéma
 ===
 
 ![image:width:80%](images/schematic.png)
 
 <!-- end_slide -->
 
-3. Routing and constraints
+2. La carte en 3D
 ===
 
-# Making it real
+<!-- column_layout: [1, 1] -->
 
-The interesting bits are where the SoC datasheet meets reality:
+<!-- column: 0 -->
 
-- DRAM is in package, so there is no DDR fly-by routing to agonize over, a huge win
-- SPI NAND has to boot the BootROM, so that bus stays clean and short
-- SPI bus sharing, deciding who gets which bus is a layout *and* software call
-- Boot-strapping pins, the BootROM samples pins at reset, and a stray pull
-  sends you into the wrong boot mode
+![image:width:100%](images/network_player_top.png)
 
-<!-- pause -->
+<!-- column: 1 -->
 
-> Most of my routing pain was really boot-strap and reset logic, not impedance.
-> On a board this small, the gotchas are electrical-logical, not RF.
+![image:width:100%](images/network_player_bottom.png)
+
+<!-- reset_layout -->
+
 
 <!-- end_slide -->
 
-4. Sending it to production
+3. Routage et contraintes
+===
+
+# Le rendre réel
+
+Les parties intéressantes sont là où la datasheet du SoC rencontre la réalité :
+
+- La DRAM est dans le boîtier, donc pas de prise de tete sur le routage DDR.
+- La NAND SPI doit démarrer le BootROM, donc ce bus reste propre et court
+- Partage du bus SPI : décider qui obtient quel bus est un choix de layout *et* de logiciel
+- Broches de boot-strapping : le BootROM échantillonne les broches au reset, et un pull parasite
+  t'envoie dans le mauvais mode de boot
+
+<!-- pause -->
+
+> L'essentiel de ma douleur de routage venait vraiment du boot-strap et de la logique de reset, pas de l'impédance.
+> Sur une carte aussi petite, les pièges sont électrico-logiques, pas RF.
+
+<!-- end_slide -->
+
+4. Envoi en production
 ===
 
 # JLCPCB
 
-- KiCad gives gerbers, drill, BOM and CPL, which I upload to JLCPCB
-- Fab *and* assembly (PCBA), they place the parts for you
-- Everything published next to the docs under `hardware/<version>/`
+- KiCad fournit les gerbers, le perçage, la BOM et la CPL, que je téléverse sur JLCPCB
+- Fabrication *et* assemblage (PCBA), ils placent les composants pour toi
+- Tout est publié à côté de la doc sous `hardware/<version>/`
 
 <!-- pause -->
 
@@ -227,30 +323,30 @@ The interesting bits are where the SoC datasheet meets reality:
 KiCad  --plot-->  gerbers.zip
                      |
                      v
-                 JLCPCB  -->  fabricated and assembled board  -->  mailbox
+                 JLCPCB  -->  carte fabriquée et assemblée  -->  boîte aux lettres
 ```
 
 <!-- pause -->
 
-> Lead time plus shipping is the longest build step in the whole project.
-> You learn to batch your mistakes before hitting order.
+> Le délai de fabrication plus l'expédition est l'étape la plus longue de tout le projet.
+> On apprend à regrouper ses erreurs avant de lancer la commande.
 
 <!-- end_slide -->
 
-5. Receiving the board
+5. Réception de la carte
 ===
 
-# First power-up
+# Premier allumage
 
-A blank board has nothing in flash. The BootROM is the only thing alive.
+Une carte vierge n'a rien en flash. Le BootROM est la seule chose en vie.
 
 <!-- pause -->
 
-## FEL mode to the rescue
+## Le mode FEL à la rescousse
 
-- Hold **BOOT**, press **reset**, release **BOOT**
-- The Allwinner BootROM falls back to FEL and shows up as a USB device
-- Push code straight into RAM with `sunxi-fel`, no flashing yet
+- Maintenir **BOOT**, appuyer sur **reset**, relâcher **BOOT**
+- Le BootROM Allwinner bascule en FEL et apparaît comme un périphérique USB
+- On pousse du code directement en RAM avec `sunxi-fel`, sans encore flasher
 
 ```sh
 sunxi-fel uboot u-boot-sunxi-with-spl.bin \
@@ -264,62 +360,62 @@ sunxi-fel uboot u-boot-sunxi-with-spl.bin \
 5. Bootstrap
 ===
 
-# From RAM to a provisioned board
+# De la RAM à une carte provisionnée
 
-1. The RAM-only image autoboots into Linux, a dedicated bootstrap build
-2. Linux brings up a USB ethernet gadget, so the board is `192.168.2.2`
-3. `bootstrap.sh` connects over SSH and provisions the NAND:
+1. L'image en RAM seule démarre automatiquement sous Linux, un build de bootstrap dédié
+2. Linux active un gadget ethernet USB, la carte est donc en `192.168.2.2`
+3. `bootstrap.sh` se connecte en SSH et provisionne la NAND :
 
 ```sh
-flash_erase /dev/mtd0 ...        # wipe the partitions
-ubiformat /dev/mtd2              # format UBI
-ubimkvol  ... rootfs             # create the volume
-flashcp spi-nand.bin /dev/mtd0   # write the bootloader
-ubiupdatevol /dev/ubi0_0 rootfs.ubifs   # write the rootfs
+flash_erase /dev/mtd0 ...        # efface les partitions
+ubiformat /dev/mtd2              # formate UBI
+ubimkvol  ... rootfs             # crée le volume
+flashcp spi-nand.bin /dev/mtd0   # écrit le bootloader
+ubiupdatevol /dev/ubi0_0 rootfs.ubifs   # écrit le rootfs
 reboot
 ```
 
 <!-- pause -->
 
-> Ship it as a single self-extracting `bootstrap-<version>.run`, so anyone can
-> flash a virgin board with one command.
+> Le livrer sous forme d'un unique `bootstrap-<version>.run` auto-extractible, pour que
+> n'importe qui puisse flasher une carte vierge en une seule commande.
 
 <!-- end_slide -->
 
-5. NAND layout
+5. Organisation de la NAND
 ===
 
-# What lives where
+# Ce qui vit où
 
-| MTD | Size | Contents |
+| MTD | Taille | Contenu |
 | --- | --- | --- |
-| `mtd0` | 1 MiB | SPL and U-Boot |
-| `mtd1` | 15 MiB | FOTA recovery (UBI) |
-| `mtd2` | 56 MiB | Main rootfs (UBIFS) |
-| `mtd3` | 56 MiB | Data and OTA staging |
+| `mtd0` | 1 Mio | SPL et U-Boot |
+| `mtd1` | 15 Mio | Recovery FOTA (UBI) |
+| `mtd2` | 56 Mio | Rootfs principal (UBIFS) |
+| `mtd3` | 56 Mio | Données et staging OTA |
 
 <!-- pause -->
 
-> The recovery partition plus an atomic rootfs swap is what makes safe OTA
-> updates possible on a device with no screen and no buttons that matter.
+> La partition de recovery plus un échange atomique du rootfs, c'est ce qui rend possibles
+> des mises à jour OTA sûres sur un appareil sans écran et sans boutons qui comptent.
 
 <!-- end_slide -->
 
-6. Embedded dev as a logbook
+6. Le dev embarqué comme journal de bord
 ===
 
-# The honest version
+# La version honnête
 
-The clean architecture diagram hides about a year of "why won't you boot".
+Le joli schéma d'architecture cache environ un an de « mais pourquoi tu ne démarres pas ».
 
-Here is the actual timeline.
+Voici la vraie chronologie.
 
 <!-- end_slide -->
 
-6. v1.0, January 2024
+6. v1.0, janvier 2024
 ===
 
-# It arrives, and fights back
+# Elle arrive, et elle riposte
 
 <!-- column_layout: [1, 1] -->
 
@@ -327,44 +423,46 @@ Here is the actual timeline.
 
 ![image:width:100%](images/v1.0_top.jpeg)
 
+![image:width:100%](images/v1.0_bottom.jpeg)
+
 <!-- column: 1 -->
 
-**2024-01-15, first boards from JLCPCB**
+**15/01/2024, premières cartes de JLCPCB**
 
-- Routing issues around power delivery and boot strapping
-- ESP32 boot and reset done with discrete transistors, which were flaky
-- Flash booting triggered when it should not have
-- Bus assignments fought each other
+- Problèmes de routage autour de l'alimentation et du boot-strapping
+- Boot et reset de l'ESP32 faits avec des transistors discrets, peu fiables
+- Le boot flash se déclenchait alors qu'il n'aurait pas dû
+- Les affectations de bus se battaient entre elles
 
-> Lesson: the first spin is a learning device, not a product.
+> Leçon : le premier tirage est un outil d'apprentissage, pas un produit.
 
 <!-- end_slide -->
 
-6. The software war stories
+6. Les anecdotes logicielles
 ===
 
-# Bugs that ate weekends
+# Des bugs qui ont mangé des week-ends
 
 - `Wrong Image Type for bootm command`
-  mainline U-Boot refused the legacy uImage, so I switched to FIT images
+  U-Boot mainline refusait l'uImage legacy, je suis donc passé aux images FIT
 - `UBIFS error: LEB size mismatch: 129024 vs 126976`
-  Buildroot's UBIFS geometry must match the runtime UBI device exactly
+  la géométrie UBIFS de Buildroot doit correspondre exactement au périphérique UBI à l'exécution
 - `g_ether: couldn't find an available UDC`
-  the USB OTG controller was held in host mode, a DTS fight
-- The SPL could not read a payload from SPI NAND out of the box,
-  so I wrote `mknandboot.sh` to repack the image the BootROM expects
+  le contrôleur USB OTG était bloqué en mode host, une bataille de DTS
+- Le SPL ne pouvait pas lire un payload depuis la NAND SPI tel quel,
+  j'ai donc écrit `mknandboot.sh` pour reconditionner l'image attendue par le BootROM
 
 <!-- pause -->
 
-> Almost every bug was a mismatch between two layers that each looked correct
-> in isolation.
+> Presque chaque bug venait d'un décalage entre deux couches qui semblaient chacune correctes
+> isolément.
 
 <!-- end_slide -->
 
-6. v1.1, June 2024
+6. v1.1, juin 2024
 ===
 
-# The fixes
+# Les corrections
 
 <!-- column_layout: [1, 1] -->
 
@@ -374,31 +472,31 @@ Here is the actual timeline.
 
 <!-- column: 1 -->
 
-**2024-06-02, the respin and the produced version**
+**02/06/2024, le respin et la version produite**
 
-- Dropped the transistors, ESP32 reset now driven directly from F1C200s GPIO
-- Added a RST button pulling MISO low to disable flash booting
-- Moved ESP32 to SPI1, SPI0 now shared between NAND and the RPi connector
-- EA3036 enable tied to 3.3 V
+- Suppression des transistors, le reset de l'ESP32 est maintenant piloté directement par un GPIO du F1C200s
+- Ajout d'un bouton RST tirant MISO au niveau bas pour désactiver le boot flash
+- Déplacement de l'ESP32 sur SPI1, SPI0 désormais partagé entre la NAND et le connecteur RPi
+- Enable de l'EA3036 relié au 3,3 V
 
-> This is the board that actually works and plays music.
+> C'est la carte qui fonctionne vraiment et qui joue de la musique.
 
 <!-- end_slide -->
 
-6. Day-to-day workflow
+6. Le workflow au quotidien
 ===
 
-# The inner loop
+# La boucle interne
 
-Once a board boots, iteration is fast:
+Une fois qu'une carte démarre, l'itération est rapide :
 
 ```sh
-make build-linux-rebuild     # rebuild just the kernel
-make build-uboot-rebuild     # rebuild just the bootloader
+make build-linux-rebuild     # recompile uniquement le noyau
+make build-uboot-rebuild     # recompile uniquement le bootloader
 ```
 
-- Push a fresh module or kernel to the running board over the USB-gadget link
-- Debug over UART0 at 115200 with `picocom`
+- Pousser un module ou un noyau frais sur la carte en cours d'exécution via le lien USB-gadget
+- Déboguer sur UART0 à 115200 avec `picocom`
 
 ```sh
 ssh root@192.168.2.2
@@ -407,53 +505,53 @@ picocom -b 115200 /dev/ttyUSB0
 
 <!-- pause -->
 
-> Boot time is logged and tracked: about 24 s cold boot (16/06/2024).
-> Knowing where the seconds go, UBI scan and uImage load, tells you what to
-> optimize.
+> Le temps de boot est journalisé et suivi : environ 24 s à froid (16/06/2024).
+> Savoir où passent les secondes, scan UBI et chargement de l'uImage, te dit quoi
+> optimiser.
 
 <!-- end_slide -->
 
-6. The build system
+6. Le système de build
 ===
 
-# Buildroot and BR2_EXTERNAL
+# Buildroot et BR2_EXTERNAL
 
 ```
 mds-builder/
-  Makefile               # thin wrapper around Buildroot
-  buildroot_config/      # one defconfig per machine
-  mds_external/          # BR2_EXTERNAL: boards, overlays, patches, FIT
+  Makefile               # fine surcouche autour de Buildroot
+  buildroot_config/      # un defconfig par machine
+  mds_external/          # BR2_EXTERNAL : boards, overlays, patches, FIT
 ```
 
-- Buildroot 2026.02.1, reproducible builds (`CONTAINER=1` for Docker)
-- Custom kernel and U-Boot defconfigs and patches tracked in-tree
-- Multiple machine targets: the player, a bootstrap image, FOTA recovery,
-  plus RPi and Anbernic targets for prototyping the audio app
+- Buildroot 2026.02.1, builds reproductibles (`CONTAINER=1` pour Docker)
+- Defconfigs et patches noyau et U-Boot personnalisés suivis dans le dépôt
+- Plusieurs cibles machine : le lecteur, une image de bootstrap, le recovery FOTA,
+  plus des cibles RPi et Anbernic pour prototyper l'application audio
 
 <!-- pause -->
 
-> One `make build` away from a flashable image. That reproducibility is what
-> let me stop being afraid of the next respin.
+> Une seule commande `make build` te sépare d'une image flashable. Cette reproductibilité,
+> c'est ce qui m'a permis de ne plus avoir peur du prochain respin.
 
 <!-- end_slide -->
 
-6. v2, October 2024
+6. v2, octobre 2024
 ===
 
-# The one that got away
+# Celle qui s'est échappée
 
-- **2024-10-17**, a full redesign on the Allwinner T113-s3, a newer, beefier SoC
-- Schematic, PCB and gerbers all done
-- Never produced, v1.1 was good enough and life happened
+- **17/10/2024**, une refonte complète sur l'Allwinner T113-s3, un SoC plus récent et plus costaud
+- Schéma, PCB et gerbers tous terminés
+- Jamais produite, la v1.1 était assez bonne et la vie a fait le reste
 
 <!-- pause -->
 
-> Every open hardware project has a v2 in a drawer. That is fine, it is a hobby,
-> not a roadmap.
+> Tout projet de hardware ouvert a une v2 dans un tiroir. C'est très bien, c'est un loisir,
+> pas une feuille de route.
 
 <!-- end_slide -->
 
-7. The result
+7. Le résultat
 ===
 
 <!-- column_layout: [1, 1] -->
@@ -468,39 +566,39 @@ mds-builder/
 
 <!-- reset_layout -->
 
-A board that:
+Une carte qui :
 
-- boots mainline Linux on a sub-$5 SoC and plays audio over SPDIF
-- updates safely over the network with FOTA, no buttons required
-- is fully open: schematics, gerbers, firmware and build system
+- démarre Linux mainline sur un SoC à moins de 5 $ et joue de l'audio en SPDIF
+- se met à jour en toute sécurité via le réseau avec FOTA, sans aucun bouton requis
+- est entièrement ouverte : schémas, gerbers, firmware et système de build
 
 <!-- end_slide -->
 
-Takeaways
+À retenir
 ===
 
-# What I would tell past me
+# Ce que je dirais à mon moi du passé
 
 <!-- pause -->
 
-- Go open, go mainline. Mainline Linux plus KiCad meant I could actually debug.
-- The hard bugs live between layers: bootrom and SPL, Buildroot and UBI, DTS and USB.
-- Reproducible builds turn a scary respin into just another `make build`.
-- Ship the bootstrap as one command. Future you is the first user.
-- The first spin will fight you. Budget for v1.1 from day one.
+- Choisis l'ouvert, choisis le mainline. Linux mainline plus KiCad m'ont permis de vraiment déboguer.
+- Les bugs difficiles vivent entre les couches : bootrom et SPL, Buildroot et UBI, DTS et USB.
+- Les builds reproductibles transforment un respin effrayant en un simple `make build`.
+- Livre le bootstrap en une seule commande. Ton toi futur est le premier utilisateur.
+- Le premier tirage te résistera. Prévois la v1.1 dès le premier jour.
 
 <!-- end_slide -->
 
-Thank you
+Merci
 ===
 
 # La Manufacture du Son
 
-Docs and sources: `https://naguirre.github.io/mds-builder/`
+Docs et sources : `https://naguirre.github.io/mds-builder/`
 
-- Hardware: CERN-OHL-P v2
-- Software: MIT
-- Built with: KiCad, Buildroot, mainline Linux, U-Boot, ESP-Hosted
+- Hardware : CERN-OHL-P v2
+- Logiciel : MIT
+- Construit avec : KiCad, Buildroot, Linux mainline, U-Boot, ESP-Hosted
 
 <!-- pause -->
 
