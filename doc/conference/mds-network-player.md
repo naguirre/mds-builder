@@ -17,13 +17,14 @@ Hello
 
 - **Nicolas Aguirre**, embedded software engineer at **Loft Orbital**
 - Building Linux kernels since the beginning of the century (maybe the last one)
-- Background in electronics and FPGA
+- Studies in microelectronics.
+- Background in FPGA, microcontroller, and Embedded Linux
 
 <!-- pause -->
 
 ## Why this project
 
-- I love listening to music, but I love the gear even more:
+- I love listening to music, but I love the gears even more:
   amplifiers, DACs, A/V receivers, radios
 - I love open hardware and open source, so I wanted a small network
   audio streamer that *I* fully control
